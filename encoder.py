@@ -1,4 +1,4 @@
-from category_encoders import OneHotEncoder, BaseNEncoder
+from category_encoders import OneHotEncoder, BaseNEncoder, TargetEncoder
 from sklearn.pipeline import Pipeline
 
 def get_onehot_encoder(columns: list):
@@ -17,4 +17,13 @@ def get_basen_encoder(columns: list):
     :return: Pipeline containing the base-n encoder
     """
     encoder = BaseNEncoder(cols=columns)
+    return Pipeline(steps=[('encoder', encoder)])
+
+def get_target_encoder(columns: list):
+    """
+    Create a target encoder for the specified columns and return it as part of a pipeline.
+    :param columns: list of columns to be target encoded
+    :return: Pipeline containing the target encoder
+    """
+    encoder = TargetEncoder(cols=columns)
     return Pipeline(steps=[('encoder', encoder)])
