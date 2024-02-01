@@ -12,7 +12,7 @@ def dataloader():
         Test dataset values
     """
     # Load the dataset
-    X_train = pd.read_csv('data/test_values.csv')
+    X_train = pd.read_csv('data/train_values.csv')
     y_train = pd.read_csv('data/train_labels.csv')
     X_test = pd.read_csv('data/test_values.csv')
     return X_train, y_train, X_test
