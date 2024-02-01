@@ -1,6 +1,7 @@
 
-from category_encoders import OneHotEncoder, BaseNEncoder, TargetEncoder
-import numpy as np
+from category_encoders import OneHotEncoder, BaseNEncoder
+from sklearn.preprocessing import TargetEncoder
+import pandas as pd
 from sklearn.pipeline import Pipeline
 
 def get_onehot_encoder(columns: list):
@@ -28,7 +29,7 @@ def get_target_encoder(columns: list):
     :param columns: list of columns to be target encoded
     :return: Pipeline containing the target encoder
     """
-    encoder = TargetEncoder(cols=columns)
+    encoder = TargetEncoder(target_type='multiclass')
     return Pipeline(steps=[('encoder', encoder)])
   
 
