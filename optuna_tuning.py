@@ -6,9 +6,8 @@ using XGBoost.
 
 import numpy as np
 import optuna
-import sklearn.metrics
 from sklearn.model_selection import train_test_split
-from xgboost import XGBClassifier
+import xgboost as xgb
 from sklearn.metrics import f1_score
 
 def transform_data(X_train, y_train, X_valid, y_valid, preprocessor):
@@ -24,8 +23,10 @@ def transform_data(X_train, y_train, X_valid, y_valid, preprocessor):
 def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
 
     opt_X_train, opt_y_train, opt_X_valid, opt_y_valid = transform_data(X_train, y_train, X_valid, y_valid, preprocessor)
+    dtrain = xgb.DMatrix(opt_X_train, label=opt_y_train)
+    dvalid = xgb.DMatrix(opt_X_valid, label=opt_y_valid)
+
     def objective(trial):
-        # X_train, y_train, X_valid, y_valid = transform_data(X_train, y_train, X_valid, y_valid, preprocessor)
 
         """Define the objective function"""
         params = {
@@ -34,27 +35,21 @@ def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
             "colsample_bytree": trial.suggest_float("colsample_bytree", 0.2, 1.0),
             "gamma" : trial.suggest_float("gamma", 1e-8, 1.0, log=True),
             'min_child_weight': trial.suggest_int("min_child_weight", 2, 10),
-            # 'n_estimators': trial.suggest_int("n_estimators", 600, 1200, step=50),
-            'eval_metric': 'auc',
-            'use_label_encoder': False,
-            # 'n_estimators': 1000,
+            'n_estimators': trial.suggest_int("n_estimators", 600, 1200, step=50),
+            'eval_metric': 'auc',    
             'seed': 42,
             'device': 'cuda'
         }
 
-        # Fit the model
-        optuna_model = XGBClassifier(**params)
-        optuna_model.fit(opt_X_train, opt_y_train)
-
-        # Make predictions
-        y_pred = optuna_model.predict(opt_X_valid)
-
-        # Evaluate predictions
-        accuracy = f1_score(opt_y_valid, y_pred, average='micro')
+        bst = xgb.train(params, dtrain)
+        preds = bst.predict(dvalid)
+        pred_labels = np.rint(preds)
+        accuracy = f1_score(opt_y_valid, pred_labels, average='micro')
+        
         return accuracy
 
     study = optuna.create_study(direction="maximize")
-    study.optimize(objective, n_trials=100)#, timeout=600)
+    study.optimize(objective, n_trials=100)
 
     print("Number of finished trials: ", len(study.trials))
     print("Best trial:")
