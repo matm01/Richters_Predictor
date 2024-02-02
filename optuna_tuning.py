@@ -30,13 +30,14 @@ def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
 
         """Define the objective function"""
         params = {
+            'learning_rate': trial.suggest_loguniform('learning_rate', 1e-3, 1e-1),
             "booster": trial.suggest_categorical("booster", ["gbtree", "dart"]),
-            'max_depth': trial.suggest_int('max_depth', 1, 9),
+            'max_depth': trial.suggest_int('max_depth', 5, 12),
             "colsample_bytree": trial.suggest_float("colsample_bytree", 0.2, 1.0),
             "gamma" : trial.suggest_float("gamma", 1e-8, 1.0, log=True),
             'min_child_weight': trial.suggest_int("min_child_weight", 2, 10),
             'n_estimators': trial.suggest_int("n_estimators", 600, 1200, step=50),
-            'eval_metric': 'auc',    
+            'eval_metric': 'auc',
             'seed': 42,
             'device': 'cuda'
         }
