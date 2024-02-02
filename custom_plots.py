@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import itertools
 
@@ -78,4 +80,15 @@ def plot_damage_by_feature(df, feature):
 
 
     # Show the plot
+    plt.show()
+
+def make_confusion_matrix(y_valid, preds):
+    conf_mat = confusion_matrix(y_valid, preds)
+
+    conf_mat_df = pd.DataFrame(conf_mat, index=['Actual 0', 'Actual 1', 'Actual 2'], columns=['Predicted 0', 'Predicted 1', 'Predicted 2'])
+
+    # Plot the heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_mat_df, annot=True, fmt='d', cmap='Reds')
+    plt.title('Confusion Matrix')
     plt.show()
