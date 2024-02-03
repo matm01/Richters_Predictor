@@ -61,7 +61,7 @@ def do_study(X_train: pd.DataFrame, y_train: pd.DataFrame,
             'min_child_weight': trial.suggest_int("min_child_weight", 2, 10),
             'n_estimators': trial.suggest_int("n_estimators", 600, 1200, step=50),
             'eval_metric': 'auc',
-            'seed': 42,
+            'random_state': 42,
             'device': 'cuda'
         }
 
