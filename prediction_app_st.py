@@ -61,6 +61,7 @@ roof_type = col3.radio('What was the building\'s roof type?',
 geo_level_1_id = col4.selectbox('Where was the building (geo level 1)?',
                                     options = np.sort(X_train["geo_level_1_id"].unique()))
 
+st.write("For the remaining features, random values from the training data are drawn.")
 
 xgb_pipeline = load_pipeline()
 input_data = pd.DataFrame({
