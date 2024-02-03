@@ -39,11 +39,14 @@ def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
     dvalid = xgb.DMatrix(trf_X_valid, label=trf_y_valid)
 
     def objective(trial):
-        """This function defines the objective to be optimized. 
+        """This function defines the objective to be optimized.
+
         It takes a 'trial' object as input and returns the accuracy of the model. The 'trial' object is used to suggest hyperparameters 
         for the XGBoost model. The function sets various parameters such as learning rate, booster type, max depth, gamma, etc. for the XGBoost model. 
-        It then trains the model on the suggested parameters and evaluates its accuracy using the F1 score. The accuracy value is returned 
-        as the output of the function.
+        It then trains the model on the suggested parameters and evaluates its accuracy using the F1 score. 
+        
+        Returns: 
+        float: The accuracy value is returned as the output of the function.
         """
         params = {
             'learning_rate': trial.suggest_loguniform('learning_rate', 1e-3, 1e-1),
