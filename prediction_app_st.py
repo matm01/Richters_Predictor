@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-from dataloader import dataloader
+from src.dataloader import dataloader
 import random
 
 st.title("Earthquake Damage Prediction")
