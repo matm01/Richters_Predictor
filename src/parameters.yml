@@ -1,0 +1,12 @@
+
+'params': {
+  'booster': 'gbtree', 'colsample_bytree': 0.7000000000000001, 
+  'eta': 0.025, 'eval_metric': 'auc', 'gamma': 0.9, 'max_depth': 11, 
+  'min_child_weight': 6.0, 'n_estimators': 969, 'nthread': 6, 
+  'seed': 42, 'subsample': 0.8, 'device': 'cuda'
+  }
+
+'xtra_params': {
+  'eta': 0.025, 'eval_metric': 'auc', 'nthread': 6, 
+  'seed': 42, 'subsample': 0.8, 'device': 'cuda'
+  }
