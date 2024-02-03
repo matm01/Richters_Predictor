@@ -1,5 +1,5 @@
 import pandas as pd
-def clean_data(X_train, y_train):
+def clean_data(X_train: pd.DataFrame, y_train: pd.DataFrame):
     """
     Clean the input data by merging X_train and y_train on 'building_id' and removing outlier rows where 'age' has values > 900. 
     Then split X_train and y_train again and return the cleaned X_train and y_train.

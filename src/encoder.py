@@ -4,7 +4,7 @@ from sklearn.preprocessing import TargetEncoder
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
-def get_onehot_encoder(columns: list):
+def get_onehot_encoder(columns: list)->Pipeline:
     """
     Create a one-hot encoder for the specified columns and return it as part of a pipeline.
     :param columns: list of columns to be one-hot encoded
@@ -13,7 +13,7 @@ def get_onehot_encoder(columns: list):
     encoder = OneHotEncoder(cols=columns)
     return Pipeline(steps=[('encoder', encoder)])
 
-def get_basen_encoder(columns: list):
+def get_basen_encoder(columns: list)->Pipeline:
     """
     Create a base-n encoder for the specified columns and return it as part of a pipeline.
     :param columns: list of columns to be base-n encoded
@@ -23,7 +23,7 @@ def get_basen_encoder(columns: list):
     return Pipeline(steps=[('encoder', encoder)])
 
 
-def get_target_encoder(columns: list):
+def get_target_encoder(columns: list)->Pipeline:
     """
     Create a target encoder for the specified columns and return it as part of a pipeline.
     :param columns: list of columns to be target encoded
@@ -33,7 +33,7 @@ def get_target_encoder(columns: list):
     return Pipeline(steps=[('encoder', encoder)])
   
 
-def encode_labels(data, reverse=False):
+def encode_labels(data: pd.DataFrame, reverse=False)->Pipeline:
     """
     Encode the labels in the input data based on the 'damage_grade' column. 
     If reverse is False, encode the labels from 1, 2, 3 to 0, 1, 2 respectively. 
