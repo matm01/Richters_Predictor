@@ -4,11 +4,14 @@ using XGBoost.
 """
 
 import numpy as np
+import pandas as pd
+from sklearn.pipeline import Pipeline
 import optuna
 import xgboost as xgb
 from sklearn.metrics import f1_score
 
-def transform_data(X_train, y_train, X_valid, y_valid, preprocessor):
+def transform_data(X_train: pd.DataFrame, y_train: pd.DataFrame, 
+                   X_valid: pd.DataFrame, y_valid: pd.DataFrame, preprocessor: Pipeline):
     """Transforms the training and validation data using the provided preprocessor.
 
     Returns:
@@ -24,7 +27,8 @@ def transform_data(X_train, y_train, X_valid, y_valid, preprocessor):
     
 
 
-def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
+def do_study(X_train: pd.DataFrame, y_train: pd.DataFrame, 
+             X_valid: pd.DataFrame, y_valid: pd.DataFrame, preprocessor: Pipeline, n_trials=100):
     """This function does an automatic hyperparameter optimization.
 
     It takes training and validation Data and a preprocessor pipeline as input. The function transforms the data, 
@@ -69,7 +73,7 @@ def do_study(X_train, y_train, X_valid, y_valid, preprocessor):
         return accuracy
 
     study = optuna.create_study(direction="maximize")
-    study.optimize(objective, n_trials=100)
+    study.optimize(objective, n_trials)
 
     print("Number of finished trials: ", len(study.trials))
     print("Best trial:")
