@@ -87,10 +87,13 @@ damage_grade = prediction[0] + 1
 if damage_grade == 1:
     damage_bar = st.progress(0.1)
     st.success("The building is predicted to have :green[**low damage (grade 1)**].")
+    st.toast("✅ Prediction updated!")
 elif damage_grade == 2:
     damage_bar = st.progress(0.5)
     st.warning("The building is predicted to have :orange[**medium damage (grade 2)**].")
+    st.toast("✅ Prediction updated!")
 elif damage_grade == 3:
     damage_bar = st.progress(0.9)
     st.error("The building is predicted to have :red[**high damage (grade 3)**].")
+    st.toast("✅ Prediction updated!")
 
