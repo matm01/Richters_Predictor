@@ -26,7 +26,7 @@ def load_data():
 # Load the pipeline
 @st.cache_resource
 def load_pipeline():
-    xgb_pipeline = pickle.load(open('models/xgb_pipeline.pkl', 'rb'))
+    xgb_pipeline = pickle.load(open('models/xgb_pipeline_streamlit.pkl', 'rb'))
     return xgb_pipeline
 
 X_train, y_train, X_test = load_data()
