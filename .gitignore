@@ -163,4 +163,5 @@ cython_debug/
 data/
 .DS_Store
 submission.csv
-models/
+models/xgb_model.pkl
+models/xgb_pipeline.pkl
